@@ -1,0 +1,4 @@
+parallel: true
+retries: 0
+node-option:
+  - enable-source-maps

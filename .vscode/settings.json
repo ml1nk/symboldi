@@ -1,0 +1,7 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "mochaExplorer.files": "**/dist/test/**/*.test.js",
+    "typescript.tsdk": "node_modules/typescript/lib",
+}

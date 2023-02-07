@@ -1,0 +1,61 @@
+{
+  "name": "symboldi",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/src/index.js",
+  "exports": {
+    ".": "./dist/src/index.js"
+  },
+  "files": [
+    "/dist/src"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build",
+    "docgen": "typedoc src/index.ts",
+    "lint": "eslint src",
+    "lintfix": "eslint src --fix",
+    "coverage": "c8 mocha dist/test/**/*.test.js",
+    "test": "mocha dist/test/**/*.test.js",
+    "bt": "pnpm run build && pnpm run test",
+    "bc": "pnpm run build && pnpm run coverage"
+  },
+  "keywords": [
+    "ioc",
+    "node",
+    "typescript",
+    "javascript",
+    "dependency injection",
+    "dependency inversion",
+    "dependency of control container",
+    "local async storage"
+  ],
+  "author":  {
+    "name" : "Marcel Link",
+    "email" : "marcel.link@t-online.de"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ml1nk/symboldi/issues"
+  },
+  "homepage": "https://ml1nk.github.io/symboldi/",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:ml1nk/symboldi.git"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.13.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "c8": "^7.12.0",
+    "eslint": "^8.33.0",
+    "eslint-config-standard-with-typescript": "^34.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "mocha": "^10.2.0",
+    "typedoc": "^0.23.24",
+    "typescript": "beta"
+  }
+}
