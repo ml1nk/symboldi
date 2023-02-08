@@ -41,7 +41,7 @@ export class Context implements Lookup {
 
   #contextCollection (): Container {
     const obj = this.#storage.getStore()
-    if (obj !== undefined) return obj.createSession()
+    if (obj !== undefined) return obj.createScope()
     else return Container.factory()
   }
 }

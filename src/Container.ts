@@ -88,7 +88,7 @@ export class Container {
     return res
   }
 
-  public createSession (): Container {
+  public createScope (): Container {
     return new Container(
       this.#factory,
       this.#singleton
