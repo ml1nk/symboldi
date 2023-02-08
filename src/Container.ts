@@ -1,10 +1,6 @@
 import { RefAlreadyRegistered } from './errors/RefAlreadyRegistered.js'
 import { RefNotRegistered } from './errors/RefNotRegistered.js'
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface RefSymbol<T> extends Symbol {
-
-}
+import { type RefSymbol } from './types.js'
 
 type ObjectFactory<T> = [(() => T), FactoryType]
 

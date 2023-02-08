@@ -1,8 +1,9 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { Container, type RefSymbol } from './Container.js'
+import { Container } from './Container.js'
 import { StoreMissing } from './errors/StoreMissing.js'
+import { type RefSymbol, type Lookup } from './types.js'
 
-export class Context {
+export class Context implements Lookup {
   #storage: AsyncLocalStorage<Container>
 
   constructor (storage?: AsyncLocalStorage<Container>) {
