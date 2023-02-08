@@ -12,7 +12,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc --build",
-    "docgen": "typedoc src/index.ts",
+    "docgen": "typedoc",
     "lint": "eslint src",
     "lintfix": "eslint src --fix",
     "coverage": "c8 mocha dist/test/**/*.test.js",

@@ -31,7 +31,7 @@ export class Container {
   }
 
   static ref<T>(): RefSymbol<T> {
-    return Symbol('ref')
+    return Symbol('RefSymbol')
   }
 
   public remove<T>(ref?: RefSymbol<T>): boolean {
