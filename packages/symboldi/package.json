@@ -1,0 +1,36 @@
+{
+  "name": "symboldi",
+  "version": "0.0.2",
+  "description": "",
+  "main": "dist/src/index.js",
+  "exports": {
+    ".": "./dist/src/index.js"
+  },
+  "files": [
+    "/dist/src"
+  ],
+  "type": "module",
+  "keywords": [
+    "ioc",
+    "node",
+    "typescript",
+    "javascript",
+    "dependency injection",
+    "dependency inversion",
+    "dependency of control container",
+    "local async storage"
+  ],
+  "author":  {
+    "name" : "Marcel Link",
+    "email" : "marcel.link@t-online.de"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ml1nk/symboldi/issues"
+  },
+  "homepage": "https://ml1nk.github.io/symboldi/",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:ml1nk/symboldi.git"
+  }
+}

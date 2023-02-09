@@ -1,4 +1,4 @@
-name: Coverage
+name: tests
 
 on:
   pull_request:
@@ -38,9 +38,12 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
         run: pnpm install
+
       - name: Run build
         run: pnpm run build
+
       - name: Run tests
         run: pnpm run coverage

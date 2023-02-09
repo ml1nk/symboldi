@@ -1,47 +1,17 @@
 {
-  "name": "symboldi",
-  "version": "0.0.1",
-  "description": "",
-  "main": "dist/src/index.js",
-  "exports": {
-    ".": "./dist/src/index.js"
-  },
-  "files": [
-    "/dist/src"
-  ],
+  "name": "@symboldi/workspace",
+  "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "build": "tsc --build",
     "docgen": "typedoc",
-    "lint": "eslint src",
-    "lintfix": "eslint src --fix",
-    "coverage": "c8 mocha dist/test/**/*.test.js",
-    "test": "mocha dist/test/**/*.test.js",
+    "lint": "eslint **/src/**/*.ts **/test/**/*.ts",
+    "lintfix": "eslint **/src/**/*.ts **/test/**/*.ts --fix",
+    "coverage": "c8 mocha **/test/**/*.test.js",
+    "test": "mocha **/test/**/*.test.js",
     "bt": "pnpm run build && pnpm run test",
     "bc": "pnpm run build && pnpm run coverage"
-  },
-  "keywords": [
-    "ioc",
-    "node",
-    "typescript",
-    "javascript",
-    "dependency injection",
-    "dependency inversion",
-    "dependency of control container",
-    "local async storage"
-  ],
-  "author":  {
-    "name" : "Marcel Link",
-    "email" : "marcel.link@t-online.de"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ml1nk/symboldi/issues"
-  },
-  "homepage": "https://ml1nk.github.io/symboldi/",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com:ml1nk/symboldi.git"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",

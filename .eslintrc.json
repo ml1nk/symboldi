@@ -1,7 +1,7 @@
 {
   "extends": "standard-with-typescript",
-  "ignorePatterns": ["dist"],
+  "ignorePatterns": ["dist", "node_modules"],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.eslint.json"
   }
 }
