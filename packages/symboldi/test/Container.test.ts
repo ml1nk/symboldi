@@ -99,6 +99,43 @@ describe('Container', () => {
     assert.equal(collection.scopeCreate().get(objRef), collection.get(objRef))
   })
 
+  it('clone', async () => {
+    const collection = Container.factory()
+    const objRef = collection.addScoped(() => ({}))
+    assert.equal(collection.get(objRef), collection.clone().get(objRef))
+  })
+
+  it('merge', async () => {
+    const c1 = Container.factory()
+    const c2 = Container.factory()
+    const c3 = Container.factory()
+
+    const r1 = c1.addScoped(() => ({}))
+    const r2 = c1.addSingleton(() => ({}))
+
+    c2.addSingleton(() => ({}))
+    c2.addSingleton(() => ({}), r2)
+    c2.addScoped(() => ({}), r1)
+
+    c3.addScoped(() => ({}))
+    c3.addSingleton(() => ({}), r1)
+    c3.addScoped(() => ({}), r2)
+
+    c2.get(r2)
+    c3.get(r2)
+    c2.get(r1)
+
+    const o1 = c3.get(r1)
+
+    c1.merge(c2, c3)
+
+    assert.equal(c1.get(r1), o1)
+
+    c3.scopeRenew()
+
+    assert.notEqual(c3.get(r1), o1)
+  })
+
   it('scoped', async () => {
     const collection = Container.factory()
     const objRef = collection.addScoped(() => ({}))

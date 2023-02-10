@@ -1,6 +1,6 @@
 import { RefAlreadyRegistered } from './errors/RefAlreadyRegistered.js'
 import { RefNotRegistered } from './errors/RefNotRegistered.js'
-import { type RefSymbol } from './types.js'
+import { type RefSymbol, type ContainerFull } from './types.js'
 
 type ObjectFactory<T> = [(() => T), FactoryType]
 
@@ -13,17 +13,19 @@ const enum FactoryType {
 /**
  * Test
  */
-export class Container {
+export class Container implements ContainerFull<Container> {
   #factory: Map<RefSymbol<unknown>, ObjectFactory<any>>
   #singleton: Map<RefSymbol<unknown>, any>
-  #scoped = new Map<RefSymbol<unknown>, any>()
+  #scoped: Map<RefSymbol<unknown>, any>
 
   private constructor (
     factory?: Map<RefSymbol<unknown>, ObjectFactory<any>>,
-    singleton?: Map<RefSymbol<unknown>, any>
+    singleton?: Map<RefSymbol<unknown>, any>,
+    scoped?: Map<RefSymbol<unknown>, any>
   ) {
     this.#factory = factory ?? new Map()
     this.#singleton = singleton ?? new Map()
+    this.#scoped = scoped ?? new Map()
   }
 
   static factory (): Container {
@@ -32,6 +34,35 @@ export class Container {
 
   static ref<T>(): RefSymbol<T> {
     return Symbol('RefSymbol')
+  }
+
+  public merge (...args: Container[]): void {
+    for (const container of args) {
+      for (const [ref, fac] of container.#factory) {
+        if (this.#factory.get(ref) != null) continue
+        this.#factory.set(ref, fac)
+      }
+
+      for (const [ref, d] of container.#singleton) {
+        const fac = this.#factory.get(ref)
+        /* c8 ignore next */
+        if (fac == null) continue
+        if (fac[1] === FactoryType.Singleton) this.#singleton.set(ref, d)
+        else if (fac[1] === FactoryType.Scoped) this.#scoped.set(ref, d)
+      }
+
+      for (const [ref, d] of container.#scoped) {
+        const fac = this.#factory.get(ref)
+        /* c8 ignore next */
+        if (fac == null) continue
+        if (fac[1] === FactoryType.Singleton) this.#singleton.set(ref, d)
+        else if (fac[1] === FactoryType.Scoped) this.#scoped.set(ref, d)
+      }
+
+      container.#factory = this.#factory
+      container.#singleton = this.#singleton
+      container.#scoped = this.#scoped
+    }
   }
 
   public remove<T>(ref?: RefSymbol<T>): boolean {
@@ -92,6 +123,14 @@ export class Container {
     return new Container(
       this.#factory,
       this.#singleton
+    )
+  }
+
+  public clone (): Container {
+    return new Container(
+      new Map(this.#factory),
+      new Map(this.#singleton),
+      new Map(this.#scoped)
     )
   }
 

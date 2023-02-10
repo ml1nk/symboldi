@@ -1,9 +1,9 @@
 import { type Container } from './Container.js'
 import { type Context } from './Context.js'
-import { type Lookup, type RefSymbol } from './types.js'
+import { type ContainerRead, type RefSymbol } from './types.js'
 
 export function Inject (
-  container: Lookup
+  container: ContainerRead
 ) {
   return <T, U>(
     ref: RefSymbol<U>
@@ -20,7 +20,7 @@ export function Inject (
 }
 
 export function InjectOrFail (
-  container: Lookup
+  container: ContainerRead
 ) {
   return <T, U>(
     ref: RefSymbol<U>

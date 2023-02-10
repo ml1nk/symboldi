@@ -1,9 +1,9 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { Container } from './Container.js'
 import { StoreMissing } from './errors/StoreMissing.js'
-import { type RefSymbol, type Lookup } from './types.js'
+import { type RefSymbol, type ContainerRead } from './types.js'
 
-export class Context implements Lookup {
+export class Context implements ContainerRead {
   #storage: AsyncLocalStorage<Container>
 
   constructor (storage?: AsyncLocalStorage<Container>) {
@@ -41,7 +41,7 @@ export class Context implements Lookup {
 
   #contextCollection (): Container {
     const obj = this.#storage.getStore()
-    if (obj !== undefined) return obj.createScope()
+    if (obj !== undefined) return obj.scopeCreate()
     else return Container.factory()
   }
 }
