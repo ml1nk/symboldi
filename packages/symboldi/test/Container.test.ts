@@ -90,13 +90,13 @@ describe('Container', () => {
     const objRef = collection.addSingleton(() => ({}))
 
     assert.equal(collection.get(objRef), collection.getOrFail(objRef))
-    assert.equal(collection.get(objRef), collection.createScope().get(objRef))
+    assert.equal(collection.get(objRef), collection.scopeCreate().get(objRef))
   })
 
   it('singleton - session before original', async () => {
     const collection = Container.factory()
     const objRef = collection.addSingleton(() => ({}))
-    assert.equal(collection.createScope().get(objRef), collection.get(objRef))
+    assert.equal(collection.scopeCreate().get(objRef), collection.get(objRef))
   })
 
   it('scoped', async () => {
@@ -104,7 +104,12 @@ describe('Container', () => {
     const objRef = collection.addScoped(() => ({}))
 
     assert.equal(collection.get(objRef), collection.get(objRef))
-    assert.notEqual(collection.get(objRef), collection.createScope().get(objRef))
+    assert.notEqual(collection.get(objRef), collection.scopeCreate().get(objRef))
+
+    const obj = collection.get(objRef)
+    assert.equal(obj, collection.get(objRef))
+    collection.scopeRenew()
+    assert.notEqual(obj, collection.get(objRef))
   })
 
   it('transient', async () => {
@@ -112,6 +117,6 @@ describe('Container', () => {
     const objRef = collection.addTransient(() => ({}))
 
     assert.notEqual(collection.get(objRef), collection.get(objRef))
-    assert.notEqual(collection.get(objRef), collection.createScope().get(objRef))
+    assert.notEqual(collection.get(objRef), collection.scopeCreate().get(objRef))
   })
 })

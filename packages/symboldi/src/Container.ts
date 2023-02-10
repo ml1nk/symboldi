@@ -88,11 +88,15 @@ export class Container {
     return res
   }
 
-  public createScope (): Container {
+  public scopeCreate (): Container {
     return new Container(
       this.#factory,
       this.#singleton
     )
+  }
+
+  public scopeRenew (): void {
+    this.#scoped.clear()
   }
 
   #add<T>(factory: ObjectFactory<T>, ref?: RefSymbol<T>): RefSymbol<T> {
