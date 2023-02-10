@@ -1,8 +1,7 @@
 {
     "references": [
         { "path": "./packages/symboldi" },
-        { "path": "./packages/example" },
-        { "path": "./packages/legacytest" }
+        { "path": "./packages/example" }
     ],
     "files": []
 }

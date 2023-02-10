@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "outDir": "dist",
+      "composite": true,
       "module": "NodeNext",
       "target": "es2022",
       "declaration": true,

@@ -1,6 +1,6 @@
 import { Container } from '../src/Container.js'
 import { Context } from '../src/Context.js'
-import { bind } from '../src/Decorator.js'
+import { bind } from '../src/decorators.js'
 
 const container = Container.factory()
 export const ref2 = Container.ref<string>()

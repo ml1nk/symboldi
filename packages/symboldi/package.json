@@ -1,10 +1,11 @@
 {
   "name": "symboldi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/src/index.js",
   "exports": {
-    ".": "./dist/src/index.js"
+    ".": "./dist/src/index.js",
+    "./decorators": "./dist/src/decorators.js"
   },
   "files": [
     "/dist/src"

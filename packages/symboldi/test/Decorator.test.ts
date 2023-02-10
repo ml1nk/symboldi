@@ -3,7 +3,7 @@ import { TestClass1, TestClass2, TestClass3, context, ref2 } from './TestClass.j
 import { StoreMissing } from '../src/errors/StoreMissing.js'
 import { RefNotRegistered } from '../src/errors/RefNotRegistered.js'
 
-describe('Container', () => {
+describe('decorators', () => {
   it('context', async () => {
     const el = new TestClass1()
 
