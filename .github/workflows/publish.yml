@@ -51,5 +51,14 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
+      - name: Copy Readme
+        run: cp README.md ./packages/symboldi/
+
+      - name: Copy Security
+        run: cp SECURITY.md ./packages/symboldi/
+
+      - name: Copy License
+        run: cp LICENSE.md ./packages/symboldi/
+
       - name: Publish
         run: pnpm publish -r

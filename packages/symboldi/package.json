@@ -1,6 +1,6 @@
 {
   "name": "symboldi",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/src/index.js",
   "exports": {
@@ -8,7 +8,10 @@
     "./decorators": "./dist/src/decorators.js"
   },
   "files": [
-    "/dist/src"
+    "/dist/src",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE.md"
   ],
   "type": "module",
   "keywords": [

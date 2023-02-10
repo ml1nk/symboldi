@@ -3,3 +3,6 @@ dist
 coverage
 docs
 .npmrc
+packages/symboldi/README.md
+packages/symboldi/SECURITY.md
+packages/symboldi/LICENSE.md
