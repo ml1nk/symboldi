@@ -14,6 +14,54 @@ SymbolDI is a tool to use dependency injection with service lifetime. It is depe
 npm install symboldi
 ~~~
 
+If you want to use decorators make sure you have TypeScript 5 or higher installed and [experimentalDecorators](https://www.typescriptlang.org/tsconfig#experimentalDecorators) disabled, which is the default.
+
+## Basic Usage
+
+* create a container
+* create some refs
+* register some services by ref and factory
+* get typed object by container with ref
+
+`service.ts`
+```ts
+import { Container } from 'symboldi';
+import crypto from 'crypto'
+
+// empty container
+export const container = Container.factory()
+
+// define ref for session
+export const sessionRef = Container.ref<string>()
+```
+
+`register.ts`
+```ts
+import { sessionRef, collection } from './service.js'
+
+collection.addScoped(() => crypto.randomUUID(), sessionRef)
+```
+
+`use.ts`
+```ts
+import { sessionRef, collection } from './service.js'
+
+// get current session
+const currentSession = container.get(sessionRef)
+
+// renew scope
+container.scopeRenew()
+
+// get next session
+const nextSession = container.get(sessionRef)
+```
+
+
+## Documentation
+
+The documentation is build with TypeDoc and hosted on GitHub Pages at [https://ml1nk.github.io/symboldi](https://ml1nk.github.io/symboldi).
+
+
 ## Similiar projects
 - [Inversify](https://github.com/inversify/InversifyJS)
 - [TypeDi](https://github.com/typestack/typedi)
