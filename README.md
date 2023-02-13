@@ -26,7 +26,6 @@ If you want to use decorators make sure you have TypeScript 5 or higher installe
 `service.ts`
 ```ts
 import { Container } from 'symboldi';
-import crypto from 'crypto'
 
 // empty container
 export const container = Container.factory()
@@ -37,14 +36,16 @@ export const sessionRef = Container.ref<string>()
 
 `register.ts`
 ```ts
-import { sessionRef, collection } from './service.js'
+import { sessionRef, container } from './service.js'
+import crypto from 'crypto'
 
-collection.addScoped(() => crypto.randomUUID(), sessionRef)
+container.addScoped(() => crypto.randomUUID(), sessionRef)
 ```
 
 `use.ts`
 ```ts
-import { sessionRef, collection } from './service.js'
+import { sessionRef, container } from './service.js'
+import './register.js'
 
 // get current session
 const currentSession = container.get(sessionRef)
@@ -54,6 +55,9 @@ container.scopeRenew()
 
 // get next session
 const nextSession = container.get(sessionRef)
+
+// ceff046e-ceb0-456e-875b-3010792e1294 dbe8fd2e-99c4-4f03-b57e-b930a90249f2
+console.log(currentSession, nextSession)
 ```
 
 

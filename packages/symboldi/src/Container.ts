@@ -28,10 +28,19 @@ export class Container implements ContainerFull<Container> {
     this.#scoped = scoped ?? new Map()
   }
 
+  /**
+   * Container factory
+   *
+   * @returns empty Container
+   */
   static factory (): Container {
     return new Container()
   }
 
+  /**
+   * Wrapper around Symbol creation to create typed referenced for direct usage in Container objects.
+   * @returns typed reference
+   */
   static ref<T>(): RefSymbol<T> {
     return Symbol('RefSymbol')
   }
