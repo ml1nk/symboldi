@@ -1,13 +1,13 @@
-import { Container } from '../src/Container.js'
-import { Context } from '../src/Context.js'
-import { bind } from '../src/decorators.js'
+import { TrackingContainer } from 'symboldi/tracking'
+import { bind } from 'symboldi/decorators'
+import { Container } from 'symboldi'
 
 const container = Container.factory()
 export const ref2 = Container.ref<string>()
 const ref = container.addSingleton(() => 'test')
 const { Inject: Inject1, InjectOrFail: InjectOrFail1 } = bind(container)
 
-export const context = new Context()
+export const context = new TrackingContainer()
 const { Inject: Inject2, InjectOrFail: InjectOrFail2 } = bind(context)
 
 export class TestClass1 {

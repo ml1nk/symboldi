@@ -1,7 +1,5 @@
-import { Container } from '../src/Container.js'
 import assert from 'node:assert/strict'
-import { RefNotRegistered } from '../src/errors/RefNotRegistered.js'
-import { RefAlreadyRegistered } from '../src/errors/RefAlreadyRegistered.js'
+import { RefAlreadyRegistered, RefNotRegistered, Container } from 'symboldi'
 
 describe('Container', () => {
   it('errors - ref not registered', async () => {

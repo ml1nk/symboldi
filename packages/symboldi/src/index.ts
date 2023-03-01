@@ -1,5 +1,4 @@
-export * from './Container.js'
-export * from './Context.js'
+export * from './classes/Container.js'
 export * from './errors/RefAlreadyRegistered.js'
 export * from './errors/RefNotRegistered.js'
 export * from './errors/StoreMissing.js'

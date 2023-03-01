@@ -1,11 +1,11 @@
-import { Container } from '../src/Container.js'
+import { Container } from '../src/classes/Container.js'
 import assert from 'node:assert/strict'
-import { Context } from '../src/Context.js'
+import { TrackingContainer } from '../src/classes/TrackingContainer.js'
 import { StoreMissing } from '../src/errors/StoreMissing.js'
 
-describe('Container', () => {
+describe('TrackingContainer', () => {
   it('context', async () => {
-    const context = new Context()
+    const context = new TrackingContainer()
 
     assert.throws(() => context.getContainerOrFail(), StoreMissing)
 

@@ -3,9 +3,11 @@
   "version": "0.1.1",
   "description": "Dependency injection with service lifetime without dependencies for TypeScript.",
   "main": "dist/src/index.js",
+  "sideEffects": false,
   "exports": {
     ".": "./dist/src/index.js",
-    "./decorators": "./dist/src/decorators.js"
+    "./decorators": "./dist/src/decorators.js",
+    "./tracking": "./dist/src/tracking.js"
   },
   "files": [
     "/dist/src",

@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict'
-import { TestClass1, TestClass2, TestClass3, context, ref2 } from './TestClass.js'
-import { StoreMissing } from '../src/errors/StoreMissing.js'
-import { RefNotRegistered } from '../src/errors/RefNotRegistered.js'
+import { TestClass1, TestClass2, TestClass3, context, ref2 } from './helper/TestClass.js'
+import { RefNotRegistered, StoreMissing } from 'symboldi'
 
 describe('decorators', () => {
   it('context', async () => {

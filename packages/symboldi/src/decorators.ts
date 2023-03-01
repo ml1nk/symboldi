@@ -1,5 +1,3 @@
-import { type Container } from './Container.js'
-import { type Context } from './Context.js'
 import { type ContainerRead, type RefSymbol } from './types.js'
 
 export function Inject (
@@ -36,7 +34,7 @@ export function InjectOrFail (
   }
 }
 
-export function bind (container: Context | Container): {
+export function bind (container: ContainerRead): {
   Inject: ReturnType<typeof Inject>
   InjectOrFail: ReturnType<typeof InjectOrFail>
 } {

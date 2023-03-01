@@ -1,6 +1,6 @@
-import { RefAlreadyRegistered } from './errors/RefAlreadyRegistered.js'
-import { RefNotRegistered } from './errors/RefNotRegistered.js'
-import { type RefSymbol, type ContainerFull } from './types.js'
+import { RefAlreadyRegistered } from '../errors/RefAlreadyRegistered.js'
+import { RefNotRegistered } from '../errors/RefNotRegistered.js'
+import { type RefSymbol, type ContainerFull } from '../types.js'
 
 type ObjectFactory<T> = [(() => T), FactoryType]
 
