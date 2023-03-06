@@ -8,9 +8,9 @@ export function Inject (
   ) => {
     return (
       target: undefined,
-      context: ClassFieldDecoratorContext<T, U>
+      context: ClassFieldDecoratorContext<T, U | undefined>
     ) => {
-      return function (this: T, value: U | undefined) {
+      return () => {
         return container.get(ref)
       }
     }
@@ -27,7 +27,7 @@ export function InjectOrFail (
       target: undefined,
       context: ClassFieldDecoratorContext<T, U>
     ) => {
-      return function (this: T, value: U) {
+      return () => {
         return container.getOrFail(ref)
       }
     }
