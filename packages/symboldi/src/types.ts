@@ -109,7 +109,7 @@ export interface ContainerFull<T extends ContainerFull<T>> extends ContainerRead
   scopeRenew: () => void
 
   /**
-   * Create a fully independant clone of the current container
+   * Create a fully independent clone of the current container
    *
    * @returns container
    */
