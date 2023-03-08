@@ -7,6 +7,8 @@ describe('TrackingContainer', () => {
   it('context', async () => {
     const context = new TrackingContainer()
 
+    context.getBaseContainer()
+
     assert.throws(() => context.getContainerOrFail(), StoreMissing)
 
     let container: Container | null = null
