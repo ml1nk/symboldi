@@ -1,6 +1,6 @@
 {
   "name": "symboldi",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Dependency injection with service lifetime without dependencies for TypeScript.",
   "main": "dist/src/index.js",
   "sideEffects": false,
