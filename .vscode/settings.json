@@ -1,6 +1,6 @@
 {
     "editor.codeActionsOnSave": {
-        "source.fixAll": true
+        "source.fixAll": "explicit"
     },
     "mochaExplorer.files": "**/dist/test/**/*.test.js",
     "typescript.tsdk": "node_modules/typescript/lib",
