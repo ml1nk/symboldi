@@ -2,7 +2,7 @@
  * Symbol with generic type.
  * The generic defines the data storable inside the container.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
 export interface RefSymbol<T> extends Symbol {
   /**
    * Assigned to "RefSymbol" is created by Container.
