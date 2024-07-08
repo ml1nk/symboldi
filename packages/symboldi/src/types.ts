@@ -83,6 +83,8 @@ export interface ContainerFull<T extends ContainerFull<T>> extends ContainerRead
    */
   addScoped: <T>(factory: () => T, ref?: RefSymbol<T>) => RefSymbol<T>
 
+  setScoped: <T>(data: T, ref?: RefSymbol<T>) => RefSymbol<T>
+
   /**
    * Add transient factory and create matching ref.
    * If ref is given it is reused

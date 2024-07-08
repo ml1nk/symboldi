@@ -3,6 +3,12 @@ import { RefNotRegistered } from '../errors/RefNotRegistered.js'
 import { type RefSymbol, type ContainerFull } from '../types.js'
 
 type ObjectFactory<T> = [(() => T), FactoryType]
+type ObjectSet<T> = [T, ObjectType]
+
+const enum ObjectType {
+  Singleton,
+  Scoped,
+}
 
 const enum FactoryType {
   Singleton,
@@ -106,6 +112,14 @@ export class Container implements ContainerFull<Container> {
     return this.#add([factory, FactoryType.Scoped], ref)
   }
 
+  public setScoped<T>(data: T, ref?: RefSymbol<T>): RefSymbol<T> {
+    return this.#set([data, ObjectType.Scoped], ref)
+  }
+
+  public setSingleton<T>(data: T, ref?: RefSymbol<T>): RefSymbol<T> {
+    return this.#set([data, ObjectType.Singleton], ref)
+  }
+
   public addTransient<T>(factory: () => T, ref?: RefSymbol<T>): RefSymbol<T> {
     return this.#add([factory, FactoryType.Transient], ref)
   }
@@ -153,9 +167,19 @@ export class Container implements ContainerFull<Container> {
     return ref
   }
 
+  #set<T>(data: ObjectSet<T>, ref?: RefSymbol<T>): RefSymbol<T> {
+    ref = this.#ref(ref)
+    if (data[1] === ObjectType.Scoped) {
+      this.#scoped.set(ref, data[0])
+    } else {
+      this.#singleton.set(ref, data[0])
+    }
+    return ref
+  }
+
   #ref<T>(ref?: RefSymbol<T>): RefSymbol<T> {
     if (ref === undefined) ref = Container.ref<T>()
-    else if (this.#factory.has(ref)) throw new RefAlreadyRegistered()
+    else if (this.#factory.has(ref) || this.#scoped.has(ref) || this.#singleton.has(ref)) throw new RefAlreadyRegistered()
     return ref
   }
 }
