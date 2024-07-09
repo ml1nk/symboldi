@@ -3,12 +3,6 @@ import { RefNotRegistered } from '../errors/RefNotRegistered.js'
 import { type RefSymbol, type ContainerFull } from '../types.js'
 
 type ObjectFactory<T> = [(() => T), FactoryType]
-type ObjectSet<T> = [T, ObjectType]
-
-const enum ObjectType {
-  Singleton,
-  Scoped,
-}
 
 const enum FactoryType {
   Singleton,
@@ -24,7 +18,7 @@ export class Container implements ContainerFull<Container> {
   #singleton: Map<RefSymbol<unknown>, any>
   #scoped: Map<RefSymbol<unknown>, any>
 
-  private constructor (
+  protected constructor (
     factory?: Map<RefSymbol<unknown>, ObjectFactory<any>>,
     singleton?: Map<RefSymbol<unknown>, any>,
     scoped?: Map<RefSymbol<unknown>, any>
@@ -113,11 +107,11 @@ export class Container implements ContainerFull<Container> {
   }
 
   public setScoped<T>(data: T, ref?: RefSymbol<T>): RefSymbol<T> {
-    return this.#set([data, ObjectType.Scoped], ref)
+    return this.#set(data, true, ref)
   }
 
   public setSingleton<T>(data: T, ref?: RefSymbol<T>): RefSymbol<T> {
-    return this.#set([data, ObjectType.Singleton], ref)
+    return this.#set(data, false, ref)
   }
 
   public addTransient<T>(factory: () => T, ref?: RefSymbol<T>): RefSymbol<T> {
@@ -167,12 +161,12 @@ export class Container implements ContainerFull<Container> {
     return ref
   }
 
-  #set<T>(data: ObjectSet<T>, ref?: RefSymbol<T>): RefSymbol<T> {
+  #set<T>(data: T, scoped: boolean, ref?: RefSymbol<T>): RefSymbol<T> {
     ref = this.#ref(ref)
-    if (data[1] === ObjectType.Scoped) {
-      this.#scoped.set(ref, data[0])
+    if (scoped) {
+      this.#scoped.set(ref, data)
     } else {
-      this.#singleton.set(ref, data[0])
+      this.#singleton.set(ref, data)
     }
     return ref
   }

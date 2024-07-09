@@ -1,20 +1,18 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { Container } from './Container.js'
-import { type RefSymbol, type ContainerRead } from './../types.js'
+import { type RefSymbol } from './../types.js'
 
-export class TrackingContainer implements ContainerRead {
-  #storage: AsyncLocalStorage<Container>
-  #baseContainer: Container
+export class TrackingContainer extends Container {
+  readonly #storage: AsyncLocalStorage<Container>
 
   /**
    * Container with integrated AsyncLocalStorage
    *
    * @param storage
-   * @param baseContainer
    */
-  constructor (storage?: AsyncLocalStorage<Container>, baseContainer?: Container) {
+  public constructor (storage?: AsyncLocalStorage<Container>) {
+    super()
     this.#storage = storage ?? new AsyncLocalStorage()
-    this.#baseContainer = baseContainer ?? Container.factory()
   }
 
   /**
@@ -30,26 +28,28 @@ export class TrackingContainer implements ContainerRead {
     callback: (...args: TArgs) => R,
     ...args: TArgs
   ): R {
+    const store = this.#storage.getStore()
+    const container = store !== undefined ? store.scopeCreate() : super.scopeCreate()
     return this.#storage.run(
-      this.getContainer().scopeCreate(),
+      container,
       callback,
       ...args
     )
   }
 
-  /**
-   * Get container in current context if one exists
-   * @returns Container or undefined
-   */
-  public getContainer (): Container {
-    return this.#storage.getStore() ?? this.#baseContainer
+  public storage(): AsyncLocalStorage<Container> {
+    return this.#storage
   }
 
   public get<T>(ref: RefSymbol<T>): T | undefined {
-    return this.getContainer().get(ref)
+    const store = this.#storage.getStore()
+    if(store === undefined) return super.get(ref)
+    else return store.get(ref)
   }
 
   public getOrFail<T>(ref: RefSymbol<T>): T {
-    return this.getContainer().getOrFail(ref)
+    const store = this.#storage.getStore()
+    if(store === undefined) return super.getOrFail(ref)
+    else return store.getOrFail(ref)
   }
 }

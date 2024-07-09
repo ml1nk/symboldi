@@ -13,7 +13,7 @@ describe('decorators', () => {
 
     context.run(() => {
       assert.throws(() => new TestClass2(), RefNotRegistered)
-      context.getContainer().addSingleton(() => 'test2', ref2)
+      context.addSingleton(() => 'test2', ref2)
       const el = new TestClass1()
       assert.equal(el.test1, 'test')
       assert.equal(el.test2, 'test2')

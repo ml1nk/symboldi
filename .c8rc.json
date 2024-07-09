@@ -1,8 +1,8 @@
 {
     "exclude": ["**/test/**", "**/example/**"],
     "check-coverage": true,
-    "branches": 90,
-    "lines": 90,
-    "functions": 90,
-    "statements": 90
+    "branches": 100,
+    "lines": 100,
+    "functions": 100,
+    "statements": 100
 }

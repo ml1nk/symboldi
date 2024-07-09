@@ -83,6 +83,28 @@ export interface ContainerFull<T extends ContainerFull<T>> extends ContainerRead
    */
   addScoped: <T>(factory: () => T, ref?: RefSymbol<T>) => RefSymbol<T>
 
+  /**
+   * Add singleon data and create matching ref.
+   * If ref is given it is reused
+   *
+   * The data is available everywhere.
+   *
+   * @param data
+   * @param ref - reference
+   * @returns given or newly created reference
+   */
+  setSingleton: <T>(data: T, ref?: RefSymbol<T>) => RefSymbol<T>
+
+  /**
+   * Add scoped data and create matching ref.
+   * If ref is given it is reused
+   *
+   * The data is only available until the scope changes.
+   *
+   * @param factory
+   * @param data - reference
+   * @returns given or newly created reference
+   */
   setScoped: <T>(data: T, ref?: RefSymbol<T>) => RefSymbol<T>
 
   /**

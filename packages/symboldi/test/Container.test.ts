@@ -86,9 +86,13 @@ describe('Container', () => {
   it('singleton', async () => {
     const collection = Container.factory()
     const objRef = collection.addSingleton(() => ({}))
+    const objRef2 = collection.setSingleton("hi")
 
     assert.equal(collection.get(objRef), collection.getOrFail(objRef))
     assert.equal(collection.get(objRef), collection.scopeCreate().get(objRef))
+
+    assert.equal(collection.get(objRef2), collection.getOrFail(objRef2))
+    assert.equal(collection.get(objRef2), collection.scopeCreate().get(objRef2))
   })
 
   it('singleton - session before original', async () => {
@@ -137,9 +141,13 @@ describe('Container', () => {
   it('scoped', async () => {
     const collection = Container.factory()
     const objRef = collection.addScoped(() => ({}))
+    const objRef2 = collection.setScoped("hi")
 
-    assert.equal(collection.get(objRef), collection.get(objRef))
+    assert.equal(collection.get(objRef), collection.getOrFail(objRef))
     assert.notEqual(collection.get(objRef), collection.scopeCreate().get(objRef))
+
+    assert.equal(collection.get(objRef2), collection.getOrFail(objRef2))
+    assert.equal(undefined, collection.scopeCreate().get(objRef2))
 
     const obj = collection.get(objRef)
     assert.equal(obj, collection.get(objRef))
