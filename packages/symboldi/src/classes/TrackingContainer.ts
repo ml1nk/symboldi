@@ -47,6 +47,30 @@ export class TrackingContainer extends Container {
     else return store.get(ref)
   }
 
+  public setScoped<T>(data: T, ref?: RefSymbol<T>): RefSymbol<T> {
+    const store = this.#storage.getStore()
+    if(store === undefined) return super.setScoped(data, ref)
+    else return store.setScoped(data, ref)
+  }
+
+  public clone (): Container {
+    const store = this.#storage.getStore()
+    if(store === undefined) return super.clone()
+    else return store.clone()
+  }
+
+  public scopeRenew (): void {
+    const store = this.#storage.getStore()
+    if(store === undefined) super.scopeRenew();  
+    else store.scopeRenew(); 
+  }
+
+  public merge (...args: Container[]): void {
+    const store = this.#storage.getStore()
+    if(store === undefined) super.merge(...args);  
+    else store.merge(...args); 
+  }
+
   public getOrFail<T>(ref: RefSymbol<T>): T {
     const store = this.#storage.getStore()
     if(store === undefined) return super.getOrFail(ref)

@@ -99,7 +99,7 @@ export interface ContainerFull<T extends ContainerFull<T>> extends ContainerRead
    * Add scoped data and create matching ref.
    * If ref is given it is reused
    *
-   * The data is only available until the scope changes.
+   * The data is only available in the current scope.
    *
    * @param factory
    * @param data - reference
