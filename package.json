@@ -6,26 +6,27 @@
   "scripts": {
     "build": "tsc --build",
     "docgen": "typedoc",
-    "lint": "eslint **/src/**/*.ts **/test/**/*.ts",
-    "lintfix": "eslint **/src/**/*.ts **/test/**/*.ts --fix",
-    "coverage": "c8 mocha **/test/**/*.test.js",
-    "test": "mocha **/test/**/*.test.js",
+    "lint": "eslint packages/*/src/**/*.ts packages/*/test/**/*.ts",
+    "lintfix": "eslint packages/*/src/**/*.ts packages/*/test/**/*.ts --fix",
+    "coverage": "c8 mocha packages/*/test/**/*.test.js",
+    "test": "mocha packages/*/test/**/*.test.js",
+    "test-acf": "node --experimental-async-context-frame node_modules/mocha/bin/_mocha \"packages/*/test/**/*.test.js\"",
     "bt": "pnpm run build && pnpm run test",
     "bc": "pnpm run build && pnpm run coverage"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.7",
-    "@types/node": "^20.14.10",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "^22.9.1",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
     "c8": "^10.1.2",
-    "eslint": "^8.57.0",
-    "eslint-config-love": "^54.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^17.9.0",
-    "eslint-plugin-promise": "^6.4.0",
-    "mocha": "^10.6.0",
-    "typedoc": "^0.26.3",
-    "typescript": "^5.5.3"
+    "eslint": "^9.15.0",
+    "eslint-config-love": "^101.0.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^17.13.2",
+    "eslint-plugin-promise": "^7.1.0",
+    "mocha": "^10.8.2",
+    "typedoc": "^0.26.11",
+    "typescript": "^5.6.3"
   }
 }

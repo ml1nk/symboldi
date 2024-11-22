@@ -1,6 +1,6 @@
 import { RefAlreadyRegistered } from '../errors/RefAlreadyRegistered.js'
 import { RefNotRegistered } from '../errors/RefNotRegistered.js'
-import { type RefSymbol, type ContainerFull } from '../types.js'
+import type { RefSymbol, ContainerFull } from '../types.js'
 
 type ObjectFactory<T> = [(() => T), FactoryType]
 
@@ -14,18 +14,18 @@ const enum FactoryType {
  * Test
  */
 export class Container implements ContainerFull<Container> {
-  #factory: Map<RefSymbol<unknown>, ObjectFactory<any>>
-  #singleton: Map<RefSymbol<unknown>, any>
-  #scoped: Map<RefSymbol<unknown>, any>
+  #factory: Map<RefSymbol<unknown>, ObjectFactory<unknown>>
+  #singleton: Map<RefSymbol<unknown>, unknown>
+  #scoped: Map<RefSymbol<unknown>, unknown>
 
   protected constructor (
-    factory?: Map<RefSymbol<unknown>, ObjectFactory<any>>,
-    singleton?: Map<RefSymbol<unknown>, any>,
-    scoped?: Map<RefSymbol<unknown>, any>
+    factory?: Map<RefSymbol<unknown>, ObjectFactory<unknown>>,
+    singleton?: Map<RefSymbol<unknown>, unknown>,
+    scoped?: Map<RefSymbol<unknown>, unknown>
   ) {
-    this.#factory = factory ?? new Map()
-    this.#singleton = singleton ?? new Map()
-    this.#scoped = scoped ?? new Map()
+    this.#factory = factory ?? new Map<RefSymbol<unknown>, ObjectFactory<unknown>>()
+    this.#singleton = singleton ?? new Map<RefSymbol<unknown>, unknown>()
+    this.#scoped = scoped ?? new Map<RefSymbol<unknown>, unknown>()
   }
 
   /**

@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { Container } from './Container.js'
-import { type RefSymbol } from './../types.js'
+import type { RefSymbol } from './../types.js'
 
 export class TrackingContainer extends Container {
   readonly #storage: AsyncLocalStorage<Container>
