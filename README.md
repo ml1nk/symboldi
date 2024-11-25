@@ -60,11 +60,53 @@ const nextSession = container.get(sessionRef)
 console.log(currentSession, nextSession)
 ```
 
+## Integrations
+
+Some libraries include direct support or are easily extended with a  context object. Typically AsynLocalStorage is used in the background to track it. The TrackingContainer also uses asynchronous context tracking and creates a new scope inside every `run` callback.
+
+For example every http request could be tracked and enriched by user authentication information, trace id, log level and an own entity manager fork or database cache.
+
+### [MikroORM](https://github.com/mikro-orm/mikro-orm)
+
+Create a TrackingContainer and ContainerRef based on EntityManager of MikroORM somwhere reachable within you codebase.
+
+~~~ts
+import type { EntityManager } from '@mikro-orm/core'
+import { Container } from 'symboldi'
+import { TrackingContainer } from 'symboldi/tracking'
+
+export const container = new TrackingContainer()
+export const ormRef = Container.ref<EntityManager>()
+~~~
+
+Add a scoped factory to create a fork of EntityManager. It is necessry to use the option `disableContextResolution` to prevent a recursion. Now init MikroORM with the `context` option getting the orm object from the container.
+
+~~~ts
+let orm: EntityManager | null  = null
+
+container.addScoped(() => {
+  if (orm === null)
+    return null
+  return orm.em.fork({ disableContextResolution: true })
+}, ormRef)
+
+orm = await MikroORM.init({
+    context: () => container.get(ormRef),
+    ...
+})
+~~~
+
+You don't need to export orm, as `container.get(ormRef)` makes it available. As it is only called once per scope if sued, it doesn't have any impact on scopes without database usage. 
+
 
 ## Documentation
 
 The documentation is build with TypeDoc and hosted on GitHub Pages at [https://ml1nk.github.io/symboldi](https://ml1nk.github.io/symboldi).
 
+### Examples
+
+- [Basic](https://github.com/ml1nk/symboldi/tree/main/packages/example/src/basic)
+- [Decorators](https://github.com/ml1nk/symboldi/tree/main/packages/example/src/decoratorsBasic)
 
 ## Similiar projects
 - [Inversify](https://github.com/inversify/InversifyJS)
