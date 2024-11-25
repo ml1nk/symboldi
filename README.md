@@ -68,7 +68,7 @@ For example every http request could be tracked and enriched by user authenticat
 
 ### [MikroORM](https://github.com/mikro-orm/mikro-orm)
 
-Create a TrackingContainer and ContainerRef based on EntityManager of MikroORM somwhere reachable within you codebase.
+Create a TrackingContainer and ContainerRef based on EntityManager of MikroORM somewhere easily reachable within your codebase.
 
 ~~~ts
 import type { EntityManager } from '@mikro-orm/core'
