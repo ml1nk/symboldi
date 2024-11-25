@@ -8,7 +8,7 @@
     "docgen": "typedoc",
     "lint": "eslint packages/*/src/**/*.ts packages/*/test/**/*.ts",
     "lintfix": "eslint packages/*/src/**/*.ts packages/*/test/**/*.ts --fix",
-    "coverage": "c8 mocha packages/*/test/**/*.test.js",
+    "coverage": "c8 mocha packages/*/dist/test/**/*.test.js",
     "test": "mocha packages/*/dist/test/**/*.test.js",
     "test-acf": "node --experimental-async-context-frame node_modules/mocha/bin/_mocha \"packages/*/dist/test/**/*.test.js\"",
     "bt": "pnpm run build && pnpm run test",
