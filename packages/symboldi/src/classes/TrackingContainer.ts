@@ -24,7 +24,7 @@ export class TrackingContainer extends Container {
    * @param args args of callback
    * @returns callback result
    */
-  public run<R, TArgs extends any[]>(
+  public run<R, TArgs extends unknown[]>(
     callback: (...args: TArgs) => R,
     ...args: TArgs
   ): R {

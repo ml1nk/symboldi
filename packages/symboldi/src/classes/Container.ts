@@ -4,6 +4,10 @@ import type { RefSymbol, ContainerFull } from '../types.js'
 
 type ObjectFactory<T> = [(() => T), FactoryType]
 
+const ObjectFactoryFunc = 0
+const ObjectFactoryType = 1
+const Zero = 0
+
 const enum FactoryType {
   Singleton,
   Scoped,
@@ -56,16 +60,16 @@ export class Container implements ContainerFull<Container> {
         const fac = this.#factory.get(ref)
         /* c8 ignore next */
         if (fac == null) continue
-        if (fac[1] === FactoryType.Singleton) this.#singleton.set(ref, d)
-        else if (fac[1] === FactoryType.Scoped) this.#scoped.set(ref, d)
+        if (fac[ObjectFactoryType] === FactoryType.Singleton) this.#singleton.set(ref, d)
+        else if (fac[ObjectFactoryType] === FactoryType.Scoped) this.#scoped.set(ref, d)
       }
 
       for (const [ref, d] of container.#scoped) {
         const fac = this.#factory.get(ref)
         /* c8 ignore next */
         if (fac == null) continue
-        if (fac[1] === FactoryType.Singleton) this.#singleton.set(ref, d)
-        else if (fac[1] === FactoryType.Scoped) this.#scoped.set(ref, d)
+        if (fac[ObjectFactoryType] === FactoryType.Singleton) this.#singleton.set(ref, d)
+        else if (fac[ObjectFactoryType] === FactoryType.Scoped) this.#scoped.set(ref, d)
       }
 
       container.#factory = this.#factory
@@ -76,7 +80,7 @@ export class Container implements ContainerFull<Container> {
 
   public remove<T>(ref?: RefSymbol<T>): boolean {
     if (ref === undefined) {
-      const res = this.#factory.size > 0
+      const res = this.#factory.size > Zero
       this.#factory.clear()
       this.#scoped.clear()
       this.#singleton.clear()
@@ -89,7 +93,7 @@ export class Container implements ContainerFull<Container> {
 
   public clear<T>(ref?: RefSymbol<T>): boolean {
     if (ref === undefined) {
-      const res = (this.#scoped.size + this.#singleton.size) > 0
+      const res = (this.#scoped.size + this.#singleton.size) > Zero
       this.#scoped.clear()
       this.#singleton.clear()
       return res
@@ -119,13 +123,15 @@ export class Container implements ContainerFull<Container> {
   }
 
   public get<T>(ref: RefSymbol<T>): T | undefined {
-    let el: T | undefined = this.#singleton.get(ref) ?? this.#scoped.get(ref)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- safe by RefSymbol
+    let el = (this.#singleton.get(ref) ?? this.#scoped.get(ref)) as  T | undefined 
     if (el === undefined) {
-      const fac: ObjectFactory<T> | undefined = this.#factory.get(ref)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- safe by RefSymbol
+      const fac = this.#factory.get(ref) as ObjectFactory<T> | undefined 
       if (fac === undefined) return undefined
-      el = fac[0]()
-      if (fac[1] === FactoryType.Singleton) this.#singleton.set(ref, el)
-      else if (fac[1] === FactoryType.Scoped) this.#scoped.set(ref, el)
+      el = fac[ObjectFactoryFunc]()
+      if (fac[ObjectFactoryType] === FactoryType.Singleton) this.#singleton.set(ref, el)
+      else if (fac[ObjectFactoryType] === FactoryType.Scoped) this.#scoped.set(ref, el)
     }
     return el
   }
