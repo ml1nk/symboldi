@@ -106,7 +106,7 @@ The documentation is build with TypeDoc and hosted on GitHub Pages at [https://m
 ### Examples
 
 - [Basic](https://github.com/ml1nk/symboldi/tree/main/packages/example/src/basic)
-- [Decorators](https://github.com/ml1nk/symboldi/tree/main/packages/example/src/decoratorsBasic)
+- [Decorators](https://github.com/ml1nk/symboldi/tree/main/packages/example/src/decorators)
 
 ## Similiar projects
 - [Inversify](https://github.com/inversify/InversifyJS)

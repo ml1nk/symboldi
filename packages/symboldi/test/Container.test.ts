@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { RefAlreadyRegistered, RefNotRegistered, Container } from 'symboldi'
 
 describe('Container', () => {
-  it('errors - ref not registered', async () => {
+  it('errors - ref not registered', () => {
     const collection = Container.factory()
     const objRef = Container.ref<{ t: string }>()
 
@@ -10,15 +10,15 @@ describe('Container', () => {
     assert.throws(() => collection.getOrFail(objRef), RefNotRegistered)
   })
 
-  it('errors - ref already registered', async () => {
+  it('errors - ref already registered', () => {
     const collection = Container.factory()
     const objRef = Container.ref<object>()
 
-    collection.addSingleton(() => {}, objRef)
-    assert.throws(() => collection.addSingleton(() => {}, objRef), RefAlreadyRegistered)
+    collection.addSingleton(() => "test", objRef)
+    assert.throws(() => collection.addSingleton(() => "test", objRef), RefAlreadyRegistered)
   })
 
-  it('remove', async () => {
+  it('remove', () => {
     const collection = Container.factory()
 
     const objRef1 = Container.ref<object>()
@@ -46,7 +46,7 @@ describe('Container', () => {
     collection.addScoped(() => ({}), objRef2)
   })
 
-  it('clear', async () => {
+  it('clear', () => {
     const collection = Container.factory()
     const objRef1 = collection.addSingleton(() => ({}))
     const objRef2 = collection.addScoped(() => ({}))
@@ -83,7 +83,7 @@ describe('Container', () => {
     assert.notEqual(b, collection.get(objRef2))
   })
 
-  it('singleton', async () => {
+  it('singleton', () => {
     const collection = Container.factory()
     const objRef = collection.addSingleton(() => ({}))
     const objRef2 = collection.setSingleton("hi")
@@ -95,19 +95,19 @@ describe('Container', () => {
     assert.equal(collection.get(objRef2), collection.scopeCreate().get(objRef2))
   })
 
-  it('singleton - session before original', async () => {
+  it('singleton - session before original', () => {
     const collection = Container.factory()
     const objRef = collection.addSingleton(() => ({}))
     assert.equal(collection.scopeCreate().get(objRef), collection.get(objRef))
   })
 
-  it('clone', async () => {
+  it('clone', () => {
     const collection = Container.factory()
     const objRef = collection.addScoped(() => ({}))
     assert.equal(collection.get(objRef), collection.clone().get(objRef))
   })
 
-  it('merge', async () => {
+  it('merge', () => {
     const c1 = Container.factory()
     const c2 = Container.factory()
     const c3 = Container.factory()
@@ -138,7 +138,7 @@ describe('Container', () => {
     assert.notEqual(c3.get(r1), o1)
   })
 
-  it('scoped', async () => {
+  it('scoped', () => {
     const collection = Container.factory()
     const objRef = collection.addScoped(() => ({}))
     const objRef2 = collection.setScoped("hi")
@@ -155,7 +155,7 @@ describe('Container', () => {
     assert.notEqual(obj, collection.get(objRef))
   })
 
-  it('transient', async () => {
+  it('transient', () => {
     const collection = Container.factory()
     const objRef = collection.addTransient(() => ({}))
 

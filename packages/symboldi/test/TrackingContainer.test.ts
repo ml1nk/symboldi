@@ -4,7 +4,7 @@ import { AsyncLocalStorage } from 'node:async_hooks'
 import { Container } from '../src/index.js'
 
 describe('TrackingContainer', () => {
-  it('context', async () => {
+  it('context', () => {
     const container = new TrackingContainer()
 
 
@@ -31,13 +31,13 @@ describe('TrackingContainer', () => {
     })
   })
 
-  it('storage', async () => {
+  it('storage', () => {
     const a = new AsyncLocalStorage<Container>()
     const container = new TrackingContainer(a)
     assert.equal(a, container.storage())
   })
 
-  it('setScoped', async () => {
+  it('setScoped', () => {
     const a = new AsyncLocalStorage<Container>()
     const container = new TrackingContainer(a)
 
@@ -51,7 +51,7 @@ describe('TrackingContainer', () => {
 
   })
 
-  it('clone', async () => {
+  it('clone', () => {
     const a = new AsyncLocalStorage<Container>()
     const container = new TrackingContainer(a)
 
@@ -67,7 +67,7 @@ describe('TrackingContainer', () => {
     })
   })
 
-  it('scopeRenew', async () => {
+  it('scopeRenew', () => {
     const a = new AsyncLocalStorage<Container>()
     const container = new TrackingContainer(a)
 
@@ -84,7 +84,7 @@ describe('TrackingContainer', () => {
   })
 
 
-  it('merge', async () => {
+  it('merge', () => {
     const a = new AsyncLocalStorage<Container>()
 
     const container = new TrackingContainer(a)

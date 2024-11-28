@@ -3,7 +3,7 @@ import { TestClass1, TestClass2, TestClass3, context, ref2 } from './helper/Test
 import { RefNotRegistered } from 'symboldi'
 
 describe('decorators', () => {
-  it('context', async () => {
+  it('context', () => {
     const el = new TestClass1()
 
     assert.equal(el.test1, 'test')

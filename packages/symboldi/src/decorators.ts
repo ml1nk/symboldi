@@ -1,20 +1,14 @@
-import { type ContainerRead, type RefSymbol } from './types.js'
+import type { ContainerRead, RefSymbol } from './types.js'
 
 export function Inject (
   container: ContainerRead
 ) {
   return <T, U>(
     ref: RefSymbol<U>
-  ) => {
-    return (
+  ) => (
       target: undefined,
       context: ClassFieldDecoratorContext<T, U | undefined>
-    ) => {
-      return () => {
-        return container.get(ref)
-      }
-    }
-  }
+    ) => () => container.get(ref)
 }
 
 export function InjectOrFail (
@@ -22,16 +16,10 @@ export function InjectOrFail (
 ) {
   return <T, U>(
     ref: RefSymbol<U>
-  ) => {
-    return (
+  ) => (
       target: undefined,
       context: ClassFieldDecoratorContext<T, U>
-    ) => {
-      return () => {
-        return container.getOrFail(ref)
-      }
-    }
-  }
+    ) => () => container.getOrFail(ref)
 }
 
 export function bind (container: ContainerRead): {
