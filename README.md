@@ -60,6 +60,12 @@ const nextSession = container.get(sessionRef)
 console.log(currentSession, nextSession)
 ```
 
+## Extensions
+
+ - The TrackingContainer in comparison to a normal Container has the method `run` which wraps around AsyncLocalStorage. Inside the callback of `run` the methods of TrackingContainer are using a separate scope.
+
+ - The decorators `Inject` and `InjectOrFail` can be created for a container and then used above class variables. When an object of such a class is created, the decorated class variables are filled by the container.
+
 ## Integrations
 
 Some libraries include direct support or are easily extended with a  context object. Typically AsynLocalStorage is used in the background to track it. The TrackingContainer also uses asynchronous context tracking and creates a new scope inside every `run` callback.
@@ -79,7 +85,7 @@ export const container = new TrackingContainer()
 export const ormRef = Container.ref<EntityManager>()
 ~~~
 
-Add a scoped factory to create a fork of EntityManager. It is necessry to use the option `disableContextResolution` to prevent a recursion. Now init MikroORM with the `context` option getting the orm object from the container.
+Add a scoped factory to create a fork of EntityManager. It is necessary to use the option `disableContextResolution` to prevent a recursion. Now init MikroORM with the `context` option getting the orm object from the container.
 
 ~~~ts
 let orm: EntityManager | null  = null
@@ -106,9 +112,14 @@ The documentation is build with TypeDoc and hosted on GitHub Pages at [https://m
 ### Examples
 
 - [Basic](https://github.com/ml1nk/symboldi/tree/main/packages/example/src/basic)
+
+- [Tracking](https://github.com/ml1nk/symboldi/tree/main/packages/example/src/tracking)
+
 - [Decorators](https://github.com/ml1nk/symboldi/tree/main/packages/example/src/decorators)
 
 ## Similiar projects
+
 - [Inversify](https://github.com/inversify/InversifyJS)
+  
 - [TypeDi](https://github.com/typestack/typedi)
 

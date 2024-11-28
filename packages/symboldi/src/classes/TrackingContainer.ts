@@ -16,9 +16,7 @@ export class TrackingContainer extends Container {
   }
 
   /**
-   * Runs the callback in a new context.
-   * If there was already a context a new scope is created,
-   * otherwise the base container is cloned.
+   * Inside the callback a new scope is used.
    *
    * @param callback fn to execute inside context
    * @param args args of callback
@@ -28,10 +26,8 @@ export class TrackingContainer extends Container {
     callback: (...args: TArgs) => R,
     ...args: TArgs
   ): R {
-    const store = this.#storage.getStore()
-    const container = store !== undefined ? store.scopeCreate() : super.scopeCreate()
     return this.#storage.run(
-      container,
+      super.scopeCreate(),
       callback,
       ...args
     )

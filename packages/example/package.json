@@ -8,6 +8,7 @@
   },
   "scripts": {
     "basic": "node ./dist/src/basic/use.js",
-    "decorators": "node ./dist/src/basic/use.js"
+    "tracking": "node ./dist/src/tracking/use.js",
+    "decorators": "node ./dist/src/decorators/use.js"
   }
 }
